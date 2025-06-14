@@ -23,5 +23,9 @@ pub mod stablecoin {
         ctx.accounts.update_config(min_health_factor)
     }
 
+    pub fn deposit_collateral_and_mint_tokens(ctx: Context<DepositCollateralAndMintTokens>, amount_collateral: u64, amount_to_mint: u64) -> Result<()> {
+        ctx.accounts.deposit_collateral_and_mint_tokens(amount_collateral, amount_to_mint, ctx.bumps)
+    }
+
 
 }
