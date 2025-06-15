@@ -8,4 +8,7 @@ pub enum ErrorCode {
     #[msg("Below Minmum Health Factor")]
     BelowMinHealthFactor,
 
+    #[msg("Cannot liquidate a Healthy Account")]
+    AboveMinHealthFactor,
+
 }
