@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 use anchor_spl::{associated_token::AssociatedToken, token_interface::{Mint, TokenAccount, Token2022}};
 use pyth_solana_receiver_sdk::price_update::PriceUpdateV2;
 
-use crate::{burn_tokens, calculate_health_factor, error::ErrorCode, get_lamports_from_usd, withdraw, withdraw_sol, Collateral, Config, SEED_CONFIG_ACCOUNT };
+use crate::{burn_tokens, calculate_health_factor, error::ErrorCode, get_lamports_from_usd, withdraw_sol, Collateral, Config, SEED_CONFIG_ACCOUNT };
 
 #[derive(Accounts)]
 pub struct Liquidate <'info> {
