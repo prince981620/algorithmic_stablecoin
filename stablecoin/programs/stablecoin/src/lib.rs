@@ -27,5 +27,9 @@ pub mod stablecoin {
         ctx.accounts.deposit_collateral_and_mint_tokens(amount_collateral, amount_to_mint, ctx.bumps)
     }
 
+    pub fn redeem_collateral_and_burn_tokens(ctx: Context<RedeemCollateralAndBurnTokens>, amount_collateral: u64, amount_to_burn: u64) -> Result<()> {
+        ctx.accounts.redeem_collateral_and_burn_tokens(amount_collateral, amount_to_burn)
+    }
+
 
 }
