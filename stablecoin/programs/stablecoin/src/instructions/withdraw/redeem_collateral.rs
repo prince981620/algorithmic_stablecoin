@@ -22,6 +22,7 @@ pub struct RedeemCollateralAndBurnTokens<'info> {
     pub config_account: Account<'info, Config>,
 
     #[account(
+        mut,
         seeds = [SEED_COLLATERAL_ACCOUNT, depositor.key().as_ref()],
         bump = collateral_account.bump,
         has_one = sol_account,
@@ -46,8 +47,8 @@ impl<'info> RedeemCollateralAndBurnTokens<'info> {
         amount_collateral: u64,
         amount_to_burn: u64,
     ) -> Result<()> {
-        self.collateral_account.lamports_balance = self.sol_account.lamports() - amount_collateral;
-        self.collateral_account.amount_minted -= amount_to_burn;
+        // self.collateral_account.lamports_balance = self.sol_account.lamports() - amount_collateral;
+        // self.collateral_account.amount_minted -= amount_to_burn;
 
         check_health_factor(
             &self.collateral_account,
@@ -68,7 +69,7 @@ impl<'info> RedeemCollateralAndBurnTokens<'info> {
             &self.system_program,
             &self.depositor.key(),
             amount_collateral,
-            self.collateral_account.bump,
+            self.collateral_account.bump_sol_account,
         )?;
         
 

@@ -26,7 +26,7 @@ pub struct DepositCollateralAndMintTokens<'info> {
         init_if_needed, // dont use for better security better create it on client side
         payer = depositor,
         space = 8 + Collateral::INIT_SPACE,
-        seeds = [SEED_COLLATERAL_ACCOUNT, mint_account.key().as_ref()],
+        seeds = [SEED_COLLATERAL_ACCOUNT, depositor.key().as_ref()],
         bump,
     )]
     pub collateral_account: Account<'info, Collateral>,
@@ -39,9 +39,9 @@ pub struct DepositCollateralAndMintTokens<'info> {
     pub sol_account: SystemAccount<'info>,
 
     #[account(
-        // init_if_needed
-        // payer = depositor
-        mut,
+        init_if_needed,
+        payer = depositor,
+        // mut,
         associated_token::mint = mint_account,
         associated_token::authority = depositor,
         associated_token::token_program = token_program,
@@ -68,8 +68,8 @@ impl<'info> DepositCollateralAndMintTokens<'info> {
                 depositor: self.depositor.key(),
                 sol_account: self.sol_account.key(),
                 token_account: self.token_account.key(),
-                lamports_balance: amount_collateral,
-                amount_minted: amount_to_mint,
+                lamports_balance: self.sol_account.lamports() + amount_collateral,
+                amount_minted: self.collateral_account.amount_minted + amount_to_mint,
                 is_initialized: true,
                 bump: bump.collateral_account,
                 bump_sol_account: bump.sol_account,
