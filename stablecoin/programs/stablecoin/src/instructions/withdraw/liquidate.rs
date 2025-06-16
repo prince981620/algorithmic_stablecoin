@@ -70,6 +70,12 @@ impl <'info> Liquidate <'info> {
             amount_to_burn,
         )?;
 
+        self.collateral_account.lamports_balance = self.sol_account.lamports();
+        self.collateral_account.amount_minted -= amount_to_burn;
+
+        calculate_health_factor(&self.collateral_account, &self.config_account, &self.price_update)?;
+        
+
         Ok(())
     }
 }
